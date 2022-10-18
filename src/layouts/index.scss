@@ -1,0 +1,25 @@
+.layout-wrapper{
+    position: relative;
+    padding-bottom: 85px;
+    .adm-tab-bar-item-active{
+        color: red;
+    }
+    .player-wrapper{
+        height: 35px;
+        position: fixed;
+        bottom: 48px;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        background: white;
+        }
+   
+    .tab-bar{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        background: white;
+    }
+}

@@ -1,0 +1,48 @@
+.swiper-wrapper{
+    .ul-list{
+        list-style: none;
+        li{
+            display: flex;
+           align-items: center;
+            padding-bottom: 10px;
+            img{
+                width: 50px;
+                height: 50px;
+                border-radius: 10px;
+                
+            }
+            .contents{
+                margin-left: 10px;
+                width: 100%;
+                padding-bottom: 10px;
+             border-bottom: 1px solid hsl(0, 37%, 97%);
+
+                .top{
+                    .title{
+                        font-size: 16px;
+                    }
+                    .line{
+                        color: #a8a5a5;
+                        margin: 0 5px;
+                    }
+                    .singer{
+                        color: #a8a5a5;
+                    }
+                }
+                .bot{
+                    .tag{
+                        color: rgb(252, 135, 1);
+                        padding: 3px;
+                        background: rgb(245, 229, 193);
+                        border-radius: 5px;
+                    }
+                    .another{
+                        color: #a8a5a5;
+                        margin-left:5px
+
+                    }
+                }
+            }
+        }
+    }
+}

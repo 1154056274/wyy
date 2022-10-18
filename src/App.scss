@@ -1,0 +1,21 @@
+html,body{
+  height: 100%;
+ 
+  #root{
+  height: 100%;
+    .App{
+      height: 100%;
+      
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+}
+*{
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,169 @@
+.detail-wrapper{
+    position: relative;
+    height: 100%;
+ 
+    .back{
+        position: fixed;
+        top: 0;
+        z-index: 100;
+        height: 45px;
+        line-height: 45px;
+        width: 100%;
+        color: white;
+        padding-left: 10px;
+        .icon{
+            width: 20px;
+        }
+        font-size: 16px;
+    }
+    .top{
+        position: relative;
+
+        height: 250px;
+        .filter{
+            float: left;
+            height: 250px;
+            width: 100%;
+           
+            -webkit-filter: blur(10px);
+            -moz-filter: blur(10px);
+            -o-filter: blur(10px);
+            -ms-filter: blur(10px);
+            filter: blur(10px);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+       
+        .mid{
+            position: absolute;
+             top: 60px;
+            left: 40px;
+            display: flex;
+            img{
+                width: 120px;
+                height: 120px;
+            }
+            .desc{
+                max-height: 70px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: #f1f1f1;
+                font-weight: 700;
+                line-height: 1.5;
+                font-size: 16px;
+                padding-left: 10px;
+                padding-right: 30px;
+                padding-top: 20px;
+            }
+        }
+        .action{
+            position: absolute;
+            bottom: 20px;
+            display: flex;
+            color: white;
+            list-style: none;
+            justify-content: space-around;
+            width: 100%;
+            li{
+                text-align: center;
+                
+            }
+        }
+    }
+    .detail-content{
+        border-radius: 10px;
+        opacity: 0.98;
+        background: #fff;
+        padding-bottom: 35px;
+        .play-all{
+            margin-left: 10px;
+            display: flex;
+            height: 46px;
+            align-items: center;
+            font-size: 16px;
+            border-bottom: 1px solid #e4e4e4;
+            position: relative;
+            .play-icon{
+                width: 24px;
+                height: 24px;
+             
+            }
+            .all{
+                margin-left: 10px;
+                .sum{
+                    font-size: 12px;
+                    color: #bba8a8;
+                }
+            }
+           
+            .love{
+                background: #d44439;
+                width: 130px;
+                color: white;
+                font-size: 14px;
+                border-radius: 3px;
+                height: 46px;
+                line-height: 46px;
+                position: absolute;
+                right: 0;
+                text-align: center;
+            }
+        }
+        .songlist{
+            list-style: none;
+            li{
+                display: flex;
+                height: 60px;
+
+                .index{
+                    width: 60px;
+                  text-align: center;
+                  line-height: 60px;
+                  font-size: 16px;
+
+                }
+                .right{
+                    border-bottom: 1px solid #e4e4e4;
+                    width: 100%;
+                    .name{
+                        color: #2E3030;
+                        font-size: 16px;
+                        padding: 5px 0;
+                        width: 350px;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+                    .singer{
+                        font-size: 12px;
+                        color: #bba8a8;
+                        padding: 5px 0;
+                        width: 350px;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+                }
+            }
+        }
+    }
+   
+    .test{
+        line-height: 100px;
+    }
+    // .player-wrapper{
+    //     height: 35px;
+    //     position: fixed;
+    //     bottom: 0;
+    //     left: 0;
+    //     width: 100%;
+    //     z-index: 999;
+    //     background: white;
+    //     }
+}
+   .detail-wrapper{
+        padding: 0;
+        .player-wrapper{
+            bottom: 0;
+        }
+    }
