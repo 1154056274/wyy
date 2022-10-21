@@ -1,14 +1,38 @@
 import React, { useEffect, useState } from 'react'
 import './index.scss'
 import {connect} from 'react-redux'
-import {PlayOutline,AppstoreOutline,MinusCircleOutline,DownOutline } from 'antd-mobile-icons'
+import {PlayOutline,AppstoreOutline,MinusCircleOutline,DownOutline,LeftOutline,RightOutline } from 'antd-mobile-icons'
 import { CSSTransition } from "react-transition-group";
 import Progressbar from '../../components/ProgressBar'
+import {Popup} from 'antd-mobile'
 const Player = (props)=>{
-    
-    const {currentPlayMusic,playStatus}  = props
+    console.log(props);
+    const [visible,setVisible] = useState(false)
+    const {currentPlayMusic,playStatus,playList}  = props
     const [status,setStatus] = useState(false)
     const [currentTime,setCurrentTime] = useState(0)
+
+    const next = ()=>{
+        playList.length&&playList.forEach((item,index)=>{
+            if(item.id==currentPlayMusic.id&&playList[index+1]){
+                props.play(playList[index+1])
+                props.changePlayStatus(true)
+
+            }
+        })
+    }
+    const prev = ()=>{
+        playList.length&&playList.forEach((item,index)=>{
+            if(item.id==currentPlayMusic.id&&playList[index-1]){
+                props.play(playList[index-1])
+                props.changePlayStatus(true)
+            }
+        })
+    }
+    const play = (item)=>{
+        props.play(item)
+        props.changePlayStatus(true)
+    }
     const formatPlayTime = (interval) => {
         interval = interval | 0;
         const minute = (interval / 60) | 0;
@@ -25,8 +49,10 @@ const Player = (props)=>{
         document.getElementById('audio').play()
     }
     useEffect(()=>{
-        currentPlayMusic&& currentPlayMusic?.id&&playStatus&& document.getElementById('audio').play()
-        currentPlayMusic&& currentPlayMusic?.id&&!playStatus&& document.getElementById('audio').pause()
+            currentPlayMusic&& currentPlayMusic?.id&&playStatus&& document.getElementById('audio').play()
+            currentPlayMusic&& currentPlayMusic?.id&&!playStatus&& document.getElementById('audio').pause()
+       
+        
       
     },[currentPlayMusic?.id,playStatus])
     return (
@@ -39,7 +65,7 @@ const Player = (props)=>{
             >
                     <div className='player-wrapper' onClick={()=>{setStatus(true)}}>
                         <div className='img-wrapper'>
-                            <img className={`play ${playStatus ? '' : 'pause'}`} src={currentPlayMusic&&currentPlayMusic?.img} alt=""/>
+                            <img className={`play ${playStatus ? '' : 'pause'}`} src={`${currentPlayMusic&&currentPlayMusic?.img}?param=300x300`} alt=""/>
                         </div>
                         <div className='center'>
                             <p className='song'>{currentPlayMusic&&currentPlayMusic?.title}</p>
@@ -50,9 +76,34 @@ const Player = (props)=>{
                                 playStatus?<MinusCircleOutline className='stop' onClick={()=>{props.changePlayStatus(false)}} />: <PlayOutline className='play' onClick={()=>{props.changePlayStatus(true)}} />
                             }
                         
-                            <AppstoreOutline className='app' />
+                            <AppstoreOutline className='app' onClick={()=>{setVisible(true)}} />
                         </div>
+                        <Popup
+                            className='popup'
+                            visible={visible}
+                            onMaskClick={() => {
+                                setVisible(false)
+                            }}
+                            bodyClassName='popup-inner'
+                            bodyStyle={{ height: '60vh',borderRadius:'10px 10px 0 0' }}
+                            >
+                              <ul className='popup-ul'>
+                                  {
+                                      playList.length&&playList.map(item=><li onClick={()=>{play(item)}}>
+                                          {
+                                              item.id==currentPlayMusic.id&& 
+                                              <span className='show'>
+                                              <PlayOutline  style={{color:'red'}}/>
+                                            </span>
+                                          }
+                                         
+                                          <span>{item.title}</span> - <span>{item.singer}</span>
+                                          </li>)
+                                  }
+                              </ul>
+                        </Popup>
                         <audio id='audio' onEnded={handleEnd} onTimeUpdate={updateTime} src={`https://music.163.com/song/media/outer/url?id=${currentPlayMusic&&currentPlayMusic?.id}.mp3`} />
+                        
                      </div>
             </CSSTransition>
 
@@ -60,7 +111,7 @@ const Player = (props)=>{
                 <div className='big-player'>
                 <div className='background'>
                     <img
-                    src={currentPlayMusic&&currentPlayMusic?.img}
+                    src={`${currentPlayMusic&&currentPlayMusic?.img}?param=300x300`}
                     width='100%'
                     height='100%'
                     alt='歌曲图片'
@@ -76,7 +127,7 @@ const Player = (props)=>{
                     </div>
                 </div>
                 <div className='cd-wrapper'>
-                    <img  className={`image play ${playStatus ? '' : 'pause'}`} src={currentPlayMusic&&currentPlayMusic?.img} alt=""/>
+                    <img  className={`image play ${playStatus ? '' : 'pause'}`} src={`${currentPlayMusic&&currentPlayMusic?.img}?param=300x300`} alt=""/>
                 </div>
                 <div  className='btm'>
                     <div className='progess'>
@@ -84,11 +135,16 @@ const Player = (props)=>{
                             <Progressbar className='progessbar' percent={percent*100} />
                             <span>{formatPlayTime(currentPlayMusic?.duration/1000)}</span>
                     </div>
+                    <div className='actions-wrapper'>
                     <div className='actions'>
-                         {
+                            <LeftOutline className='left' onClick={()=>{prev()}} />
+                            {
                                 playStatus?<MinusCircleOutline className='stop' onClick={()=>{props.changePlayStatus(false)}} />: <PlayOutline className='play' onClick={()=>{props.changePlayStatus(true)}} />
-                        }
+                            }
+                            <RightOutline className='right' onClick={()=>{next()}}  />
                     </div>
+                    </div>
+                    
                     
 
 
@@ -119,7 +175,21 @@ const mapDispatchToProps = (dispatch)=>{
                 value
             }
             dispatch(action)
-        }
+        },
+        play(value){
+            const action = {
+                type: 'changePlayMusic',
+                value
+            }
+            dispatch(action)
+        },
+        changePlayStatus(value){
+            const action = {
+                type: 'changePlayStatus',
+                value
+            }
+            dispatch(action)
+        },
     }
 }
 

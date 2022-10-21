@@ -117,7 +117,7 @@ export default ()=>{
                     </li> */}
                     {
                         dataSource.map(item=><li  onClick={()=>{slickClick(item.id)}} >
-                            <img src={item.img} alt=""/>
+                            <img src={`${item.img}?param=300x300`} alt=""/>
                              <p>{item.title}</p>
                         </li>)
                     }

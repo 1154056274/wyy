@@ -22,6 +22,7 @@ const TabsList = (props) => {
     },[])
 
     const play = (item)=>{
+        props.setPlayList([item])
         props.play(item)
         props.changePlayStatus(true)
     }
@@ -45,7 +46,7 @@ const TabsList = (props) => {
             <ul className='ul-list'>
                 {
                      !_.isEmpty(dataSource)&&dataSource.arr1.map(item=><li onClick={()=>{play(item)}}>
-                        <img src={item.img} alt=""/>
+                       <img src={`${item.img}?param=300x300`} alt=""/>
                         <div className='contents'>
                             <div className='top'>
                                 <span className='title'>{item.title}</span>
@@ -65,7 +66,7 @@ const TabsList = (props) => {
             <ul className='ul-list'>
                 {
                      !_.isEmpty(dataSource)&&dataSource.arr2.map(item=><li onClick={()=>{play(item)}}>
-                        <img src={item.img} alt=""/>
+                        <img src={`${item.img}?param=300x300`} alt=""/>
                         <div className='contents'>
                             <div className='top'>
                                 <span className='title'>{item.title}</span>
@@ -85,7 +86,7 @@ const TabsList = (props) => {
             <ul className='ul-list'>
                 {
                      !_.isEmpty(dataSource)&&dataSource.arr3.map(item=><li onClick={()=>{play(item)}}>
-                        <img src={item.img} alt=""/>
+                         <img src={`${item.img}?param=300x300`} alt=""/>
                         <div className='contents'>
                             <div className='top'>
                                 <span className='title'>{item.title}</span>
@@ -124,6 +125,13 @@ const mapDispatchToProps = (dispatch)=>{
             const action = {
                 type: 'changePlayStatus',
                 value
+            }
+            dispatch(action)
+        },
+        setPlayList(list){
+            const action = {
+                type:'setPlayList',
+                value:list
             }
             dispatch(action)
         }

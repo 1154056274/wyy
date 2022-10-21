@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default function (options: any) {
-    options.url = `http://30.239.41.194:3000${options.url}`;
+    options.url = `http://localhost:3000${options.url}`;
 
     options.withCredentials = true; //跨域请求是否提供凭据信息 https://blog.csdn.net/chjj0904/article/details/90268813
     const { method, data, } = options;

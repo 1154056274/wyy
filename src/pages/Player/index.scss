@@ -75,6 +75,39 @@
 
         }
     }
+        
+       
+   
+  
+  
+}
+.popup{
+    .popup-inner{
+        overflow: auto;
+        &::-webkit-scrollbar {
+            display: none;
+          }
+        .popup-ul{
+            list-style: none;
+            text-indent: 60px;
+            padding: 10px 0;
+            li{
+                height: 40px;
+                line-height: 40px;
+                overflow-x: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                position: relative;
+                .show{
+                    position: absolute;
+                    left: -30px;
+
+                }
+            }
+            
+        
+        }
+    }
 }
 
 .big-player{
@@ -165,22 +198,37 @@
                margin: 0 10px;
            }
         }
-        .actions{
-            display: flex;
-            justify-content: space-around;
-            margin-top: 30px;
-            .stop{
-                width: 40px;
-                height: 40px;
-                color: #2E3030;
-            }
-            .play{
-             
+        .actions-wrapper{
+            width: 60%;
+            margin: 0 auto;
+            .actions{
+                display: flex;
+                justify-content: space-around;
+                margin-top: 30px;
+                .left{
                     width: 40px;
                     height: 40px;
                     color: #2E3030;
+                }
+                .right{
+                    width: 40px;
+                    height: 40px;
+                    color: #2E3030; 
+                }
+                .stop{
+                    width: 40px;
+                    height: 40px;
+                    color: #2E3030;
+                }
+                .play{
+                 
+                        width: 40px;
+                        height: 40px;
+                        color: #2E3030;
+                }
             }
         }
+        
         
     }
 

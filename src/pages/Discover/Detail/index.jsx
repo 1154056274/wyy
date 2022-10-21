@@ -12,25 +12,44 @@ const Detail = (props)=>{
     const [cover,setCover]  = useState({})
     const [list,setList] = useState([])
     const play = (item)=>{
+        props.setPlayList(list)
         props.play(item)
         props.changePlayStatus(true)
     }
+    const playAll = ()=>{
+        props.setPlayList(list)
+        props.play(list[0])
+        props.changePlayStatus(true)
+    }
+
+  
     useEffect(()=>{
-        window.addEventListener('scroll',(e)=>{
-            const headerDom = document.getElementsByClassName('back')[0]
-            let minScrollY = -45;
-            let percent = Math.abs(-e.target.scrollTop / minScrollY);
-            if (-e.target.scrollTop < minScrollY && headerDom) {
-                headerDom.style.backgroundColor = 'rgb(212, 68, 57)'
-                headerDom.style.opacity = '' + Math.min(1, (percent - 1) / 2);
-                setTitle('[纯音乐]错落一身宁静，深海浮沉摘星')
-              } else {
-                headerDom.style.backgroundColor = '';
-                headerDom.style.opacity = '1';
-                setTitle('返回')
-              }
-        },true)
-    })
+        
+
+        window.addEventListener('scroll',onScroll,true)
+
+        return ()=>{
+            window.removeEventListener('scroll',onScroll,true)
+        }
+
+    },[])
+
+    const onScroll = (e)=>{
+        
+        if(!(e.target == document.getElementsByClassName('App')[0])) return 
+        const headerDom = document.getElementsByClassName('back')[0]
+        let minScrollY = -45;
+        let percent = Math.abs(-e.target.scrollTop / minScrollY);
+        if (-e.target.scrollTop < minScrollY && headerDom) {
+            headerDom.style.backgroundColor = 'rgb(212, 68, 57)'
+            headerDom.style.opacity = '' + Math.min(1, (percent - 1) / 2);
+            setTitle('[纯音乐]错落一身宁静，深海浮沉摘星')
+          } else {
+            headerDom.style.backgroundColor = '';
+            headerDom.style.opacity = '1';
+            setTitle('返回')
+          }
+    }
     
     useEffect(()=>{
 
@@ -53,10 +72,7 @@ const Detail = (props)=>{
        
     },[props.match.params?.id])
 
-    useEffect(()=>{
-        // document.getElementsByClassName('layout-wrapper')[0].style.padding  = '0'
-        // document.getElementsByClassName('player-wrapper')[0].style.bottom  = '0'
-    },[])
+
 
     return <div className='detail-wrapper'>
         <div className='back' onClick={()=>{history.push('/layout/discover')}}>
@@ -92,8 +108,9 @@ const Detail = (props)=>{
         </div>
         <div className='detail-content'>
             <div className='play-all'>
-                        <PlayOutline className='play-icon' />
-                    <div className='all'>
+             
+                <PlayOutline className='play-icon' onClick={()=>{playAll()}} />
+                    <div className='all'  onClick={()=>{playAll()}}>
                         播放全部
                         <span className='sum'>
                             （共20首）
@@ -102,6 +119,7 @@ const Detail = (props)=>{
                     <div className='love'>
                         + 收藏(50.6万)
                     </div>
+                   
             </div>
             <ul className='songlist'>
                 {
@@ -148,6 +166,13 @@ const mapDispatchToProps = (dispatch)=>{
             const action = {
                 type: 'changePlayStatus',
                 value
+            }
+            dispatch(action)
+        },
+        setPlayList(list){
+            const action = {
+                type:'setPlayList',
+                value:list
             }
             dispatch(action)
         }
